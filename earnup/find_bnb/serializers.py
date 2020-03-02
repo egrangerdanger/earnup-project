@@ -17,7 +17,7 @@ class SearchQuerySerializer(serializers.Serializer):
 
 
 class SearchResultsSerializer(serializers.ModelSerializer):
-    distance = serializers.FloatField(required=False)
+    distance = serializers.FloatField(allow_null=True)
 
     class Meta:
         model = BnBListing
