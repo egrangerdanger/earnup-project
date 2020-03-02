@@ -13,7 +13,7 @@ class BnBListing(models.Model):
     longitude = models.FloatField()
     longitude_radians = models.FloatField()
     room_type = models.TextField(blank=True, null=True)
-    price = models.PositiveIntegerField(blank=True, null=True)  # money, so should have decimals allowed
+    price = models.PositiveIntegerField(blank=True, null=True)
     minimum_nights = models.PositiveIntegerField(blank=True, null=True)
     number_of_reviews = models.PositiveIntegerField(blank=True, null=True)
     last_review = models.DateField(blank=True, null=True)
@@ -22,6 +22,7 @@ class BnBListing(models.Model):
     availability_365 = models.PositiveIntegerField(blank=True, null=True)
 
     class Meta:
+        # index fields we'll be querying
         indexes = [
             models.Index(fields=['latitude_radians', 'longitude_radians']),
             models.Index(fields=['name', 'neighborhood', 'neighborhood_group', 'room_type']),

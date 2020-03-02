@@ -36,9 +36,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('data_path', type=str,
-                            help='path to datafile for loading')
+                            help='path to datafile for loading (csv)')
         parser.add_argument('error_path', type=str,
-                            help='output file path for problem records')
+                            help='output file path for problem records (txt)')
         parser.add_argument('--batch_size', type=int,
                             help=f'batch size for bulk create, default is '
                                  f'{DEFAULT_BATCH_SIZE}')
@@ -56,6 +56,7 @@ class Command(BaseCommand):
                 for line_num, row in chunk.where(chunk.notnull(), None).iterrows():
                     ser = BnBListingSerializer(data={k: v for k, v in zip(COLUMNS_TO_FIELDS, row.to_list())})
                     if ser.is_valid():
+                        # calculate and cache lat and long in radians, will need this to calc distances later
                         ser.validated_data['longitude_radians'] = radians(ser.validated_data['longitude'])
                         ser.validated_data['latitude_radians'] = radians(ser.validated_data['latitude'])
 

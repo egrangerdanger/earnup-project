@@ -47,7 +47,6 @@ class SearchListingsView(APIView):
             c = 2 * ASin(Sqrt(a))
             distance_func = c * EARTH_RADIUS_M
 
-            # efficiency improvement: use a square first to limit the amount of data to annotate
             qset = qset.annotate(distance=distance_func)
             qset = qset.filter(distance__lte=distance)
         else:
@@ -62,7 +61,7 @@ class SearchListingsView(APIView):
                                                          'room_type'))
                 qset = qset.filter(search=SearchQuery(query))
             else:
-                # use regular __icontains: very basic search in SQLite
+                # use __icontains: very basic search in SQLite
                 qset = qset.filter(Q(name__icontains=query) |
                                    Q(neighborhood_group__icontains=query) |
                                    Q(neighborhood__icontains=query) |
@@ -72,4 +71,4 @@ class SearchListingsView(APIView):
                                              many=True)
 
         return JsonResponse(data=serializer.data, status=status.HTTP_200_OK,
-                            safe=False)
+                            safe=False)  # safe has to be False so we can return a list of result
