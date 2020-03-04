@@ -16,5 +16,5 @@ following environment variables must be present:
 7. Start up the app: `python manage.py runserver`
 8. Send POST requests to http://127.0.0.1:8000/search to query the imported data
 <br>As shown in the project description, request payload should have the form:
-<br>`{"latitude": 41, "longitude": -73, "distance": 300.7, "query": "near the empire state building"}`
+<br>`{"latitude": 40.7306, "longitude": -73.9352, "distance": 1000, "query": "two bedroom"}`
 <br>(all keys optional)
